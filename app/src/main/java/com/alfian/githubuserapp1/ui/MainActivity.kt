@@ -1,11 +1,13 @@
 package com.alfian.githubuserapp1.ui
 
+import android.content.Intent
 import android.content.res.TypedArray
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alfian.githubuserapp1.R
+import com.alfian.githubuserapp1.adapter.OnItemClickCallback
 import com.alfian.githubuserapp1.adapter.UserAdapter
 import com.alfian.githubuserapp1.databinding.ActivityMainBinding
 import com.alfian.githubuserapp1.data.User
@@ -43,6 +45,14 @@ class MainActivity : AppCompatActivity() {
                 GridLayoutManager(this@MainActivity, 2, GridLayoutManager.HORIZONTAL, false)
             rvList.setHasFixedSize(true)
         }
+        adapter.setOnItemClickCallback(object : OnItemClickCallback{
+            override fun onItemClicked(user: User) {
+                val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.KEY_USER, user)
+                startActivity(intent)
+            }
+
+        })
     }
 
     private fun setToolbar() {
